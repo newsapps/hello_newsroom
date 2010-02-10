@@ -317,14 +317,17 @@ def _execute_psql(query):
     env.query = query
     run(('cd %(path)s/repository; psql -q %(project_name)s -c "%(query)s"') % env)
     
-"""
-Local development bootstrap: you should only run this once.
-"""    
 def bootstrap():
+    """
+    Local development bootstrap: you should only run this once.
+    """    
     create_database(local)
     local("sh ./manage syncdb --noinput")
     local("sh ./manage load_shapefiles")
 
-def local_shiva():
+def shiva_local():
+    """
+    Undo any local setup.  This will *destroy* your local database, so use with caution.
+    """    
     destroy_database(local)
     
