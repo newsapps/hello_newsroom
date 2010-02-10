@@ -1,0 +1,59 @@
+{% load core %}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <link rel="stylesheet" href="{% build_media_url '/site_media/hello_world.css' %}" type="text/css" media="screen" title="no title" charset="utf-8">
+	<title>Hello, World</title>
+    {% gmap %}	
+</head>
+
+<body>
+    <div id="left-rail">
+        <ul>
+            <li><a href="http://docs.djangoproject.com/en/1.1/" title="Django | Django documentation | Version 1.1">Django Documentation (1.1)</a></li>
+            <li><a href="http://geodjango.org/docs/index.html" title="GeoDjango Documentation &mdash; GeoDjango v1.2 documentation">GeoDjango Documentation</a></li>
+            <li><a href="http://code.google.com/apis/maps/documentation/reference.html" title="Google Maps API Reference - Google Maps API - Google Code">Google Maps API Reference</a></li>
+            <li><a href="http://www.cityofchicago.org/gis" title="City of Chicago - Geographic Information Systems">City of Chicago GIS data</a>
+                <ul>
+                    <li><a href="http://egov.cityofchicago.org/webportal/COCWebPortal/COC_ATTACH/community_area.zip" title="Chicago Community Areas (direct link to Shapefile ZIP)">Chicago Community Areas</a></li>
+                    <li><a href="http://egov.cityofchicago.org/webportal/COCWebPortal/COC_EDITORIAL/CTA_Stations.zip" title="CTA Stations (direct link to Shapefile ZIP)">CTA Stations</a></li>
+                    
+                </ul>
+            </li>
+        </ul>
+    </div>
+    <div id="content">
+<h1>Here's your home page</h1>
+<form id="the_form" action="{% url search %}" onsubmit="return geocode(this);">
+    Enter an address: <input size="80" type="text" id="query_input" name="query" value="{{query|default:''}}"><br />
+    <input type="submit" />
+</form>
+{% if address %}
+Normalized Query Address: {{ address }}
+{% if remainder %}<h2>Did you mean?</h2>
+<ul>
+{% for hit in remainder %}
+<li><a href="{% url search %}?query={{hit.0}}">{{hit.0}}</a></li>
+{% endfor %}
+</ul>
+{% endif %}
+{% if community_area %}
+<p>Your search is within the {{ community_area.community }} community area.</p>
+{% else %}
+<p><em>{{ address}}</em> could not be located within any of Chicago's 77 community areas.</p>
+{% endif %}
+{% if stations %}
+The following CTA stations are within one mile of your query:
+<ul>
+    {% for station in stations %}
+    <li>{{station.name}} – {{ station.lines }} ({{station.address}})</li>
+    {% endfor %}
+</ul>
+{% endif %}
+{% endif %}
+</div>
+</body>
+</html>
