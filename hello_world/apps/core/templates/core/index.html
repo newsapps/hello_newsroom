@@ -1,21 +1,89 @@
 {% load core %}
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <link rel="stylesheet" href="{% build_media_url '/site_media/hello_world.css' %}" type="text/css" media="screen" title="no title" charset="utf-8">
-	<title>Hello, World</title>
-    {% gmap %}	
+    <title>Hello, World</title>
+    <script type="text/javascript" charset="utf-8" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.1/jquery.min.js"></script>
+    {% gmap %}
+    <script type="text/javascript" charset="utf-8">
+        function geocode(form) {
+            geocoder.getLocations($("#query").val, handle_geocode);
+            
+        }
+
+        function handle_geocode(gc_result) {
+            if (gc_result.Status.code != 200 || gc_result.Placemark.length == 0) {
+                $("#message").html("No locations found for your search.");
+                return false;
+            }
+            if (gc_result.Placemark.length > 1) {
+                display_alternatives(gc_result.Placemark);
+                return false;
+            }
+            // exactly one hit
+            placemark = gc_result.Placemark[0];
+            $("#address_input").val(placemark.address); // pass back the normalized address
+            $("#geocode_input").val(placemark.Point.coordinates);
+            var form = document.getElementById('the_form');
+            form.submit();
+        }
+
+        function geocode(form) {
+            $("#message").html("");
+            var addr_elem = document.getElementById('query_input');
+            window.geocoder.getLocations(addr_elem.value, handle_geocode);
+            return false;
+        }
+
+        function click_handler(loc) {
+            // return a closure 
+            return function() {
+                $("#query_input").val(loc.address);
+                $("#the_form").submit();
+                return false;
+            }
+        }
+
+        function display_alternatives(locations) {
+            $("#multiple-locations").html('');
+            window.stash = locations;
+            for (var i = 0; i < locations.length; i++) {
+                var node = document.createElement('a');
+                $(node).attr("href","#");
+                $(node).text(locations[i].address).addClass('alternative-location');
+                $(node).click(click_handler(locations[i]));
+                $("#multiple-locations").append(node);
+            }
+        }
+
+        function init_geocoder() {
+            var bounds = new GLatLngBounds();
+            bounds.extend(new GLatLng(36.969971899999997,-91.513518300000001)); // SW IL BB
+            bounds.extend(new GLatLng(42.508347900000004,-87.495213899999996)); // NE IL BB
+            window.geocoder = new GClientGeocoder();
+            window.geocoder.setViewport(bounds); // prefer results within Illinois
+        }
+
+        function init() {
+            init_geocoder();
+            $("#the_form").bind("submit", geocode);
+        }
+        $(document).ready(init);
+    </script>
 </head>
 
 <body>
     <div id="left-rail">
         <ul>
+            <li><a href="http://blog.apps.chicagotribune.com/" title="News Apps Blog">Chicago Tribune News Apps Team Blog</a></li>
             <li><a href="http://docs.djangoproject.com/en/1.1/" title="Django | Django documentation | Version 1.1">Django Documentation (1.1)</a></li>
             <li><a href="http://geodjango.org/docs/index.html" title="GeoDjango Documentation &mdash; GeoDjango v1.2 documentation">GeoDjango Documentation</a></li>
             <li><a href="http://code.google.com/apis/maps/documentation/reference.html" title="Google Maps API Reference - Google Maps API - Google Code">Google Maps API Reference</a></li>
+            <li><a href="http://docs.jquery.com/Main_Page" title="Main Page - jQuery JavaScript Library">jQuery Documentation</a></li>
             <li><a href="http://www.cityofchicago.org/gis" title="City of Chicago - Geographic Information Systems">City of Chicago GIS data</a>
                 <ul>
                     <li><a href="http://egov.cityofchicago.org/webportal/COCWebPortal/COC_ATTACH/community_area.zip" title="Chicago Community Areas (direct link to Shapefile ZIP)">Chicago Community Areas</a></li>
@@ -27,12 +95,17 @@
     </div>
     <div id="content">
 <h1>Here's your home page</h1>
-<form id="the_form" action="{% url search %}" onsubmit="return geocode(this);">
+<form id="the_form" action="{% url search %}">
     Enter an address: <input size="80" type="text" id="query_input" name="query" value="{{query|default:''}}"><br />
+    <input type="hidden" id="address_input" name="address" />
+    <input type="hidden" id="geocode_input" name="geocode" />
     <input type="submit" />
+    <div class="error" id="message"></div>
 </form>
+<div id="multiple-locations">
+</div>
 {% if address %}
-Normalized Query Address: {{ address }}
+<h3>Normalized Query Address: {{ address }}</h3>
 {% if remainder %}<h2>Did you mean?</h2>
 <ul>
 {% for hit in remainder %}
