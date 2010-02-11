@@ -17,6 +17,7 @@ env.env_path = '%(path)s/env' % env
 env.repo_path = '%(path)s/repository' % env
 env.apache_config_path = '/home/newsapps/sites/apache/%(project_name)s' % env
 env.python = 'python2.6'
+env.repository_url = 'git@tribune.unfuddle.com:tribune/helloworld.git'
 
 """
 Environments
@@ -104,7 +105,7 @@ def clone_repo():
     """
     Do initial clone of the git repository.
     """
-    run('git clone git@tribune.unfuddle.com:tribune/%(project_name)s.git %(repo_path)s' % env)
+    run('git clone %(repository_url)s %(repo_path)s' % env)
 
 def checkout_latest():
     """
