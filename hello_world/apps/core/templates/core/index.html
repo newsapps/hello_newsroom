@@ -73,6 +73,44 @@
             $("#the_form").bind("submit", geocode);
         }
         $(document).ready(init);
+        var gmap = null;
+        {% if point %}
+        function init_map() {
+            if (GBrowserIsCompatible()) {
+                var center = {{point.geojson|safe}};
+                gmap = new GMap2(document.getElementById("map"));
+                add_google_marker(gmap,center,'{{ address|safe }}')
+                var lon = center['coordinates'][0];
+                var lat = center['coordinates'][1];
+                gmap.setCenter(new GLatLng(lat,lon), 10);
+                gmap.setMapType(G_PHYSICAL_MAP);
+                gmap.enableDoubleClickZoom();
+                gmap.enableContinuousZoom();
+                gmap.enableScrollWheelZoom();
+                gmap.setZoom(15);
+                {% if community_area %}
+                geoxml = new GGeoXml('{% url comm_area_kml community_area.area_number %}');
+                gmap.addOverlay(geoxml);
+                GEvent.addListener(geoxml, "load", function() {
+                    this.gotoDefaultViewport( gmap ); 
+                })
+                {% endif %}
+            }
+        }
+
+        function add_google_marker(gmap,point,label) {
+            var lon = point['coordinates'][0]
+            var lat = point['coordinates'][1]
+            var gicon = new GIcon(G_DEFAULT_ICON);
+            var opts = { 'icon': gicon, 'title': label }
+            var marker = new GMarker(new GLatLng(lat,lon),opts);
+            gmap.addOverlay(marker);
+            return marker;
+        }
+
+        $(document).ready(init_map);
+        {% endif %}
+
     </script>
 </head>
 
@@ -106,6 +144,9 @@
 </div>
 {% if address %}
 <h3>Normalized Query Address: {{ address }}</h3>
+{% if point %}
+<div id="map"></div>
+{% endif %}
 {% if remainder %}<h2>Did you mean?</h2>
 <ul>
 {% for hit in remainder %}

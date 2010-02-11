@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://earth.google.com/kml/2.1">
+<Document>
+    <Style id="transBluePoly">
+      <LineStyle>
+        <width>1.5</width>
+        <color>ffbfa173</color>
+      </LineStyle>
+      <PolyStyle>
+        <color>7dbfa173</color>
+      </PolyStyle>
+    </Style>
+
+  <Placemark>
+    <name>{{ comm_area.community }}</name>
+    <styleUrl>#transBluePoly</styleUrl>
+    {{ comm_area.geom.kml|safe }}
+  </Placemark>
+</Document>
+</kml>

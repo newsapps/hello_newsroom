@@ -3,6 +3,7 @@ import logging
 from django.shortcuts import render_to_response
 from django.contrib.gis.geos import Point
 from django.contrib.gis.measure import Distance
+from django.contrib.gis.shortcuts import render_to_kml
 
 from geopy import geocoders
 
@@ -40,6 +41,10 @@ def index(request):
     except KeyError:
         pass # no query
     return render_to_response('core/index.html', template_dict)
+
+def comm_area_kml(request, area_number):
+    ca = models.CommunityArea.objects.get(area_number=area_number)
+    return render_to_kml('core/community_area.kml', {'comm_area': ca })
 
 def geocode(query):
     results = list(GEOCODER.geocode(query,exactly_one=False))

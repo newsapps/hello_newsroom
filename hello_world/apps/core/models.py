@@ -1,12 +1,10 @@
+from django.contrib.gis.db import models
+
 # This is an auto-generated Django model module created by ogrinspect.
 # ./manage ogrinspect data/maps/community_areas/Community_area.shp CommunityArea --name-field=community --srid=4269 --mapping 
 # followed by a little trimming/editing
 
 # http://egov.cityofchicago.org/webportal/COCWebPortal/COC_ATTACH/community_area.zip
-from django.contrib.gis.db import models
-
-# This is an auto-generated Django model module created by ogrinspect.
-from django.contrib.gis.db import models
 
 class CommunityArea(models.Model):
     area_number = models.CharField(max_length=2)
@@ -23,8 +21,6 @@ communityarea_mapping = {
     'geom' : 'POLYGON',
 }
 
-# This is an auto-generated Django model module created by ogrinspect.
-from django.contrib.gis.db import models
 
 class Station(models.Model):
     shortname = models.CharField(max_length=20)
