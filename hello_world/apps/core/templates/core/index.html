@@ -92,7 +92,9 @@
                 geoxml = new GGeoXml('{% url comm_area_kml community_area.area_number %}');
                 gmap.addOverlay(geoxml);
                 GEvent.addListener(geoxml, "load", function() {
-                    this.gotoDefaultViewport( gmap ); 
+                    if (this.loadedCorrectly()){
+                        this.gotoDefaultViewport( gmap ); 
+                    }
                 })
                 {% endif %}
             }
