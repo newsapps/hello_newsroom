@@ -4,7 +4,7 @@ DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 
 # Database
-DATABASE_HOST = 'db.beta.tribapps.com'
+DATABASE_HOST = 'localhost'
 DATABASE_PORT = '5433'
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
@@ -13,10 +13,10 @@ DATABASE_PORT = '5433'
 MEDIA_URL = 'http://media-beta.tribapps.com/hello_world/'
 
 # Predefined domain
-MY_SITE_DOMAIN = 'hello_world.beta.tribapps.com'
+MY_SITE_DOMAIN = 'ec2-75-101-207-40.compute-1.amazonaws.com'
 
 # Email
-EMAIL_HOST = 'mail.beta.tribapps.com'
+EMAIL_HOST = 'localhost'
 
 # Caching
 CACHE_BACKEND = 'memcached://127.0.0.1:11211/'
