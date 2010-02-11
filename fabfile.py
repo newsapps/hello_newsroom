@@ -18,6 +18,8 @@ env.repo_path = '%(path)s/repository' % env
 env.apache_config_path = '/home/newsapps/sites/apache/%(project_name)s' % env
 env.python = 'python2.6'
 env.repository_url = 'git@tribune.unfuddle.com:tribune/helloworld.git'
+env.multi_server = False
+env.memcached_server_address = "cache.example.com"
 
 """
 Environments
@@ -186,7 +188,10 @@ def reboot():
     """
     Restart the Apache2 server.
     """
-    sudo('/mnt/apps/bin/restart-all-apache.sh')
+    if env.multi_server:
+        run('/mnt/apps/bin/restart-all-apache.sh')
+    else:
+        sudo('service apache2 restart')
     
 def maintenance_down():
     """
@@ -284,7 +289,10 @@ def clear_cache():
     """
     Restart memcache, wiping the current cache.
     """
-    sudo('/mnt/apps/bin/restart-memcache.sh')
+    if env.multi_server:
+        run('restart-memcache.sh %(memcached_server_address)' % env)
+    else:
+        sudo('service memcached restart')
     
 def echo_host():
     """
