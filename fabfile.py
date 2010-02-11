@@ -17,6 +17,9 @@ env.env_path = '%(path)s/env' % env
 env.repo_path = '%(path)s/repository' % env
 env.apache_config_path = '/home/newsapps/sites/apache/%(project_name)s' % env
 env.python = 'python2.6'
+env.repository_url = 'git@tribune.unfuddle.com:tribune/helloworld.git'
+env.multi_server = False
+env.memcached_server_address = "cache.example.com"
 
 """
 Environments
@@ -26,7 +29,7 @@ def production():
     Work on production environment
     """
     env.settings = 'production'
-    env.hosts = ['db.tribapps.com']
+    env.hosts = ['db.example.com']
     env.user = 'newsapps'
     env.s3_bucket = 'media.apps.chicagotribune.com'
 
@@ -35,7 +38,7 @@ def staging():
     Work on staging environment
     """
     env.settings = 'staging'
-    env.hosts = ['db.beta.tribapps.com'] 
+    env.hosts = ['ec2-75-101-207-40.compute-1.amazonaws.com'] 
     env.user = 'newsapps'
     env.s3_bucket = 'media-beta.tribapps.com'
     
@@ -104,7 +107,7 @@ def clone_repo():
     """
     Do initial clone of the git repository.
     """
-    run('git clone git@tribune.unfuddle.com:tribune/%(project_name)s.git %(repo_path)s' % env)
+    run('git clone %(repository_url)s %(repo_path)s' % env)
 
 def checkout_latest():
     """
@@ -185,7 +188,10 @@ def reboot():
     """
     Restart the Apache2 server.
     """
-    sudo('/mnt/apps/bin/restart-all-apache.sh')
+    if env.multi_server:
+        run('/mnt/apps/bin/restart-all-apache.sh')
+    else:
+        sudo('service apache2 restart')
     
 def maintenance_down():
     """
@@ -283,7 +289,10 @@ def clear_cache():
     """
     Restart memcache, wiping the current cache.
     """
-    sudo('/mnt/apps/bin/restart-memcache.sh')
+    if env.multi_server:
+        run('restart-memcache.sh %(memcached_server_address)' % env)
+    else:
+        sudo('service memcached restart')
     
 def echo_host():
     """
