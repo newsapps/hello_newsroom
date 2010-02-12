@@ -38,7 +38,7 @@ def staging():
     Work on staging environment
     """
     env.settings = 'staging'
-    env.hosts = ['ec2-75-101-207-40.compute-1.amazonaws.com'] 
+    env.hosts = ['hello_world.beta.tribapps.com'] 
     env.user = 'newsapps'
     env.s3_bucket = 'media-beta.tribapps.com'
     
@@ -154,7 +154,6 @@ def deploy():
     checkout_latest()
     gzip_assets()
     deploy_to_s3()
-    refresh_widgets()
     maintenance_down()
     
 def maintenance_up():
@@ -178,12 +177,6 @@ def deploy_to_s3():
     env.gzip_path = '%(path)s/repository/%(project_name)s/gzip/assets/' % env
     run(('s3cmd -P --add-header=Content-encoding:gzip --guess-mime-type --rexclude-from=%(path)s/repository/s3exclude sync %(gzip_path)s s3://%(s3_bucket)s/%(project_name)s/%(site_media_prefix)s/') % env)
        
-def refresh_widgets():
-    """
-    Redeploy the widgets to S3.
-    """
-    run('source %(env_path)s/bin/activate; cd %(repo_path)s; ./manage refreshwidgets' % env)
-
 def reboot(): 
     """
     Restart the Apache2 server.
@@ -310,8 +303,10 @@ def shiva_the_destroyer():
     with settings(warn_only=True):
         run('rm -Rf %(path)s' % env)
         run('rm -Rf %(log_path)s' % env)
+        pgpool_down()
         run('dropdb %(project_name)s' % env)
         run('dropuser %(project_name)s' % env)
+        pgpool_up()
         sudo('rm %(apache_config_path)s' % env)
         reboot()
         run('s3cmd del --recursive s3://%(s3_bucket)s/%(project_name)s' % env)
