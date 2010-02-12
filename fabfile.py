@@ -38,7 +38,7 @@ def staging():
     Work on staging environment
     """
     env.settings = 'staging'
-    env.hosts = ['ec2-75-101-207-40.compute-1.amazonaws.com'] 
+    env.hosts = ['db.beta.tribapps.com'] 
     env.user = 'newsapps'
     env.s3_bucket = 'media-beta.tribapps.com'
     

@@ -7,7 +7,6 @@
     Redirect permanent /favicon.ico http://media-beta.tribapps.com/hello_world/na_media/favicon.ico
     
     Alias /robots.txt /home/newsapps/sites/hello_world/repository/hello_world/assets/robots.txt
-    Alias /na_media/ /home/newsapps/sites/hello_world/env/src/newsapps/newsapps/na_media/
  
     ErrorLog /home/newsapps/logs/hello_world.error.log
     LogLevel warn
