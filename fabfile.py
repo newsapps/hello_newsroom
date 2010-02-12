@@ -125,7 +125,7 @@ def install_apache_conf():
     """
     Install the apache site config file.
     """
-    sudo('cp %(repo_path)s/%(project_name)s/configs/%(settings)s/%(project_name)s %(apache_config_path)s' % env)
+    sudo('cp %(repo_path)s/%(project_name)s/configs/%(settings)s/apache %(apache_config_path)s' % env)
 
 def deploy_requirements_to_s3():
     """
