@@ -1,4 +1,6 @@
-#left-rail { float: left; background: #cccccc; margin-right: 5em; padding: 2em;}
+#left-rail { float: left; background: #cccccc; margin-right: 5em; padding: 5px; padding-bottom: 100ex; font-size: smaller;}
+#left-rail ul { padding-left: 25px;}
 #body { float: right;}
-#map { width: 400px; height: 400px;}
+#map { width: 200px; height: 200px; float: right; padding: 2em;}
+#normalized-address { font-size: larger; font-weight: bold;}
 a.alternative-location { display: block;}

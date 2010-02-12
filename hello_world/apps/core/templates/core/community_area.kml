@@ -13,6 +13,7 @@
 
   <Placemark>
     <name>{{ comm_area.community }}</name>
+    <description>Community Area #{{ comm_area.area_number }}: {{ comm_area.community }}</description>
     <styleUrl>#transBluePoly</styleUrl>
     {{ comm_area.geom.kml|safe }}
   </Placemark>
