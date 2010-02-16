@@ -107,7 +107,7 @@ OMNITURE_SECTION = ""
 OMNITURE_SUBSECTION = ""
 GOOGLE_ANALYTICS_KEY = ""
 
-GOOGLE_MAPS_API_KEY = "ABQIAAAA3uGjGrzq3HsSSbZWegPbIhT2yXp_ZAY8_ufC3CFXhHIE1NvwkxTkZ0cAEFHx2wSJvv_v9KrLl0gINQ" # for 'localhost'
+GOOGLE_MAPS_API_KEY = "ABQIAAAA3uGjGrzq3HsSSbZWegPbIhSMhkig1Gd5B_2j4H1Xz7hsATFBFhSnBeYqZ7F7xlyJh-_KEClsWgAO6Q" # for all 'amazonaws.com'
 
 # Allow for local (per-user) override
 try:
