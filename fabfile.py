@@ -17,7 +17,7 @@ env.env_path = '%(path)s/env' % env
 env.repo_path = '%(path)s/repository' % env
 env.apache_config_path = '/home/newsapps/sites/apache/%(project_name)s' % env
 env.python = 'python2.6'
-env.repository_url = 'git@tribune.unfuddle.com:tribune/helloworld.git'
+env.repository_url = 'git://github.com/JoeGermuska/hello_newsroom.git'
 env.multi_server = False
 env.memcached_server_address = "cache.example.com"
 
@@ -38,7 +38,7 @@ def staging():
     Work on staging environment
     """
     env.settings = 'staging'
-    env.hosts = ['db.beta.tribapps.com'] 
+    env.hosts = ['ec2-204-236-246-222.compute-1.amazonaws.com'] 
     env.user = 'newsapps'
     env.s3_bucket = 'media-beta.tribapps.com'
     
@@ -161,7 +161,7 @@ def maintenance_up():
     """
     Install the Apache maintenance configuration.
     """
-    sudo('cp %(repo_path)s/%(project_name)s/configs/%(settings)s/%(project_name)s_maintenance %(apache_config_path)s' % env)
+    sudo('cp %(repo_path)s/%(project_name)s/configs/%(settings)s/apache_maintenance %(apache_config_path)s' % env)
     reboot()
 
 def gzip_assets():

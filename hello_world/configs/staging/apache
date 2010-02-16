@@ -1,6 +1,6 @@
 <VirtualHost *:80>
     ServerName hello_world.beta.tribapps.com
-    ServerAlias www.hello_world.beta.tribapps.com
+    ServerAlias ec2-204-236-246-222.compute-1.amazonaws.com
 
     WSGIScriptAlias / /home/newsapps/sites/hello_world/repository/hello_world/configs/staging/staging.wsgi
     
