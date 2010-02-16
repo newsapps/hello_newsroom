@@ -302,8 +302,10 @@ def shiva_the_destroyer():
     with settings(warn_only=True):
         run('rm -Rf %(path)s' % env)
         run('rm -Rf %(log_path)s' % env)
+        pgpool_down()
         run('dropdb %(project_name)s' % env)
         run('dropuser %(project_name)s' % env)
+        pgpool_up()
         sudo('rm %(apache_config_path)s' % env)
         reboot()
         run('s3cmd del --recursive s3://%(s3_bucket)s/%(project_name)s' % env)

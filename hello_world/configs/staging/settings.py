@@ -24,6 +24,8 @@ CACHE_BACKEND = 'memcached://127.0.0.1:11211/'
 # S3
 AWS_S3_URL = 's3://media-beta.tribapps.com/hello_world/'
 
+GOOGLE_MAPS_API_KEY = 'ABQIAAAANMVc375kuYJYODW5joRwyRSLxTlal1xvdPXu2siN6MQ6NGGqkRRlI70U62fmkwVzzVSoBlojeas1sQ'
+
 # Trib IPs for security
 INTERNAL_IPS = ('163.192.12.84','163.192.12.108','163.192.12.32')
 
