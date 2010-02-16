@@ -6,6 +6,19 @@ from urllib import quote_plus
 register = template.Library()
  
 @register.simple_tag
+def url_prefix():
+    """Render a suitable prefix for a fully qualified URL.  Designed to work with
+    the Django 'url' tag, so this will not include the trailing slash.  Uses
+    settings.MY_SITE_DOMAIN and, if defined, settings.MY_SITE_SCHEMA (defaults to http if not defined)
+    and settings.MY_SITE_PORT (e.g. 8000; defaults to empty if not defined)"""
+    parts = [getattr(settings,'MY_SITE_SCHEMA','http'), '://', getattr(settings,'MY_SITE_DOMAIN')]
+    parts.append(settings.MY_SITE_DOMAIN) # will throw an exception if
+    if getattr(settings,'MY_SITE_PORT',False):
+        parts.append(':')
+        parts.append(settings.MY_SITE_PORT)
+    return parts.join('')    
+
+@register.simple_tag
 def build_media_url(uri):
     """
        Take a bit of url (uri) and put it together with the media url

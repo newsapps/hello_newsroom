@@ -90,7 +90,7 @@
                 gmap.enableScrollWheelZoom();
                 gmap.setZoom(14);
                 {% if community_area %}
-                var the_url = '{% url comm_area_kml community_area.area_number %}';
+                var the_url = '{% url_prefix %}{% url comm_area_kml community_area.area_number %}';
                 geoxml = new GGeoXml(the_url);
                 GEvent.addListener(geoxml, "load", function() {
                     if (this.loadedCorrectly()){

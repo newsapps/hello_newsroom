@@ -13,7 +13,7 @@ DATABASE_PORT = '5433'
 MEDIA_URL = 'http://media-beta.tribapps.com/hello_world/'
 
 # Predefined domain
-MY_SITE_DOMAIN = 'ec2-75-101-207-40.compute-1.amazonaws.com'
+MY_SITE_DOMAIN = 'ec2-204-236-246-222.compute-1.amazonaws.com'
 
 # Email
 EMAIL_HOST = 'localhost'
