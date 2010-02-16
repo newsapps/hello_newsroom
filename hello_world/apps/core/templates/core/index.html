@@ -94,8 +94,7 @@
                 geoxml = new GGeoXml(the_url);
                 GEvent.addListener(geoxml, "load", function() {
                     if (this.loadedCorrectly()){
-                        gmap.addOverlay(geoxml);
-                        this.gotoDefaultViewport( gmap ); 
+                        gmap.addOverlay(this);
                     } else {
                         GLog.write("didn't load correctly!");
                         GLog.writeUrl(the_url);
