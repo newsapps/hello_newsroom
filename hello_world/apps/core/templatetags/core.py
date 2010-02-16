@@ -16,7 +16,7 @@ def url_prefix():
     if getattr(settings,'MY_SITE_PORT',False):
         parts.append(':')
         parts.append(settings.MY_SITE_PORT)
-    return parts.join('')    
+    return ''.join(parts)
 
 @register.simple_tag
 def build_media_url(uri):
