@@ -12,7 +12,6 @@ def url_prefix():
     settings.MY_SITE_DOMAIN and, if defined, settings.MY_SITE_SCHEMA (defaults to http if not defined)
     and settings.MY_SITE_PORT (e.g. 8000; defaults to empty if not defined)"""
     parts = [getattr(settings,'MY_SITE_SCHEMA','http'), '://', getattr(settings,'MY_SITE_DOMAIN')]
-    parts.append(settings.MY_SITE_DOMAIN) # will throw an exception if
     if getattr(settings,'MY_SITE_PORT',False):
         parts.append(':')
         parts.append(settings.MY_SITE_PORT)
