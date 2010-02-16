@@ -154,7 +154,6 @@ def deploy():
     checkout_latest()
     gzip_assets()
     deploy_to_s3()
-    refresh_widgets()
     maintenance_down()
     
 def maintenance_up():
@@ -178,12 +177,6 @@ def deploy_to_s3():
     env.gzip_path = '%(path)s/repository/%(project_name)s/gzip/assets/' % env
     run(('s3cmd -P --add-header=Content-encoding:gzip --guess-mime-type --rexclude-from=%(path)s/repository/s3exclude sync %(gzip_path)s s3://%(s3_bucket)s/%(project_name)s/%(site_media_prefix)s/') % env)
        
-def refresh_widgets():
-    """
-    Redeploy the widgets to S3.
-    """
-    run('source %(env_path)s/bin/activate; cd %(repo_path)s; ./manage refreshwidgets' % env)
-
 def reboot(): 
     """
     Restart the Apache2 server.
@@ -218,7 +211,6 @@ def rollback(commit_id):
     git_reset(commit_id)
     gzip_assets()
     deploy_to_s3()
-    refresh_widgets()
     maintenance_down()
     
 def git_reset(commit_id):
