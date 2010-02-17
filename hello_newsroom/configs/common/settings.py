@@ -17,8 +17,8 @@ MANAGERS = ADMINS
 
 # Database
 DATABASE_ENGINE = 'postgresql_psycopg2'
-DATABASE_NAME = 'hello_world'
-DATABASE_USER = 'hello_world'
+DATABASE_NAME = 'hello_newsroom'
+DATABASE_USER = 'hello_newsroom'
 DATABASE_HOST = 'localhost'
 DATABASE_PASSWORD = '5IQZe7WEix'
 DATABASE_PORT = '5432'
@@ -69,7 +69,7 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.cache.FetchFromCacheMiddleware',
 )
 
-ROOT_URLCONF = 'hello_world.configs.common.urls'
+ROOT_URLCONF = 'hello_newsroom.configs.common.urls'
 
 TEMPLATE_DIRS = (
     os.path.join(SITE_ROOT, 'templates')
@@ -83,7 +83,7 @@ INSTALLED_APPS = (
     'django.contrib.humanize',
     'django.contrib.gis',
     'django.contrib.sitemaps',
-    'hello_world.apps.core',
+    'hello_newsroom.apps.core',
 )
 
 # Predefined domain
@@ -97,12 +97,12 @@ EMAIL_PORT = 1025
 DEFAULT_FROM_EMAIL = 'do.not.reply@tribune.com'
 
 # Caching
-CACHE_MIDDLEWARE_KEY_PREFIX='hello_world'
+CACHE_MIDDLEWARE_KEY_PREFIX='hello_newsroom'
 CACHE_MIDDLEWARE_SECONDS=90 * 60 # 90 minutes
 CACHE_BACKEND="dummy:///"
 
 # Analytics
-OMNITURE_PAGE_NAME = "hello_world"
+OMNITURE_PAGE_NAME = "hello_newsroom"
 OMNITURE_SECTION = ""
 OMNITURE_SUBSECTION = ""
 GOOGLE_ANALYTICS_KEY = ""

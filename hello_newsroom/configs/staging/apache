@@ -1,0 +1,25 @@
+<VirtualHost *:80>
+    ServerName hello_newsroom.beta.tribapps.com
+    ServerAlias ec2-204-236-246-222.compute-1.amazonaws.com
+
+    WSGIScriptAlias / /home/newsapps/sites/hello_newsroom/repository/hello_newsroom/configs/staging/staging.wsgi
+    
+    Redirect permanent /favicon.ico http://media-beta.tribapps.com/hello_newsroom/na_media/favicon.ico
+    
+    Alias /robots.txt /home/newsapps/sites/hello_newsroom/repository/hello_newsroom/assets/robots.txt
+ 
+    ErrorLog /home/newsapps/logs/hello_newsroom.error.log
+    LogLevel warn
+
+    CustomLog /home/newsapps/logs/hello_newsroom.access.log combined
+    
+    ServerSignature Off
+    
+    RewriteEngine on
+    # canonical hostname
+    RewriteCond %{HTTP_HOST} ^www [NC] 
+    RewriteRule ^/(.*)  http://hello_newsroom.beta.tribapps.com/$1 [L,R]
+    
+    RewriteCond %{REQUEST_URI} /maintenance.html$ 
+    RewriteRule $ / [R=302,L]
+</VirtualHost>

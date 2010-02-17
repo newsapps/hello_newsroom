@@ -1,4 +1,4 @@
-from hello_world.configs.common.settings import *
+from hello_newsroom.configs.common.settings import *
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -10,7 +10,7 @@ DATABASE_PORT = '5433'
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash if there is a path component (optional in other cases).
 # Examples: "http://media.lawrence.com", "http://example.com/media/"
-MEDIA_URL = 'http://media-beta.tribapps.com/hello_world/'
+MEDIA_URL = 'http://media-beta.tribapps.com/hello_newsroom/'
 
 # Predefined domain
 MY_SITE_DOMAIN = 'ec2-204-236-246-222.compute-1.amazonaws.com'
@@ -22,7 +22,7 @@ EMAIL_HOST = 'localhost'
 CACHE_BACKEND = 'memcached://127.0.0.1:11211/'
 
 # S3
-AWS_S3_URL = 's3://media-beta.tribapps.com/hello_world/'
+AWS_S3_URL = 's3://media-beta.tribapps.com/hello_newsroom/'
 
 # GOOGLE_MAPS_API_KEY = 'ABQIAAAA3uGjGrzq3HsSSbZWegPbIhSMhkig1Gd5B_2j4H1Xz7hsATFBFhSnBeYqZ7F7xlyJh-_KEClsWgAO6Q' # all amazonaws.com
 

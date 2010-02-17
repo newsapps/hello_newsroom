@@ -1,0 +1,39 @@
+<VirtualHost *:80>
+    ServerName hello_newsroom.chicagotribune.com
+    ServerAlias hello_newsroom.apps.chicagotribune.com
+    ServerAlias www.hello_newsroom.chicagotribune.com
+    ServerAlias www.hello_newsroom.apps.chicagotribune.com
+    ServerAlias hello_newsroom-new.tribapps.com
+    
+    SetEnvIf X-Forwarded-For "^163\.192\..*\..*" trib
+    <Location /> # until launch
+          Order Deny,Allow
+          Allow from all
+          # Allow from env=trib
+    </Location>
+    
+    Redirect permanent /favicon.ico http://media.apps.chicagotribune.com/hello_newsroom/na_media/favicon.ico
+    
+    Alias /robots.txt /home/newsapps/sites/hello_newsroom/repository/hello_newsroom/assets/robots.txt
+
+    ErrorLog /home/newsapps/logs/hello_newsroom.error.log
+    LogLevel warn
+
+    SetEnvIf X-Forwarded-For "^.*\..*\..*\..*" is-forwarder
+    LogFormat "%{X-Forwarded-For}i %l %u %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-Agent}i\" %I %O" combinedio
+    LogFormat "[%h] %l %u %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-Agent}i\" %I %O" combinedio2
+    CustomLog /home/newsapps/logs/hello_newsroom.access.log combinedio env=is-forwarder
+    CustomLog /home/newsapps/logs/hello_newsroom.access.log combinedio2 env=!is-forwarder
+
+    ServerSignature Off
+    
+    RewriteEngine on
+    # canonical hostname
+    RewriteCond %{HTTP_HOST} !^hello_newsroom.chicagotribune.com [NC] 
+    RewriteRule ^/(.*)  http://hello_newsroom.chicagotribune.com/$1 [L,R]
+    
+    DocumentRoot /home/newsapps/sites/hello_newsroom/repository/hello_newsroom/assets/
+    
+    RewriteCond %{REQUEST_URI} !/maintenance.html$ 
+    RewriteRule $ /maintenance.html [R=302,L]
+</VirtualHost>

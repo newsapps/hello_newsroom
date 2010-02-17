@@ -9,7 +9,7 @@ from geopy import geocoders
 
 from core import models
 
-log = logging.getLogger("hello_world")
+log = logging.getLogger("hello_newsroom")
 
 # NOTE: Under load, this strategy is likely to max out your Google API Key. 
 # Where possible, geocode addresses using client side calls.

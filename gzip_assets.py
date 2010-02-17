@@ -12,7 +12,7 @@ class FakeTime:
 # See: http://stackoverflow.com/questions/264224/setting-the-gzip-timestamp-from-python
 gzip.time = FakeTime()
 
-project_dir = 'hello_world'
+project_dir = 'hello_newsroom'
 
 shutil.rmtree(os.path.join(project_dir, 'gzip'), ignore_errors=True)
 shutil.copytree(os.path.join(project_dir, 'assets'), os.path.join(project_dir, 'gzip/assets'))

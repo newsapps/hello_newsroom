@@ -1,2 +1,2 @@
 #!/bin/sh
-python ./hello_world/configs/${DEPLOYMENT_TARGET:="common"}/manage.py $*
+python ./hello_newsroom/configs/${DEPLOYMENT_TARGET:="common"}/manage.py $*

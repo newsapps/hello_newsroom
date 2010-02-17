@@ -1,0 +1,27 @@
+<VirtualHost *:80>
+    ServerName hello_newsroom.beta.tribapps.com
+    ServerAlias www.hello_newsroom.beta.tribapps.com
+    
+    Redirect permanent /favicon.ico http://media-beta.tribapps.com/hello_newsroom/na_media/favicon.ico
+    
+    Alias /robots.txt /home/newsapps/sites/hello_newsroom/repository/hello_newsroom/assets/robots.txt
+ 
+    Alias /na_media/ /home/newsapps/sites/hello_newsroom/env/src/newsapps/newsapps/na_media/
+    
+    ErrorLog /home/newsapps/logs/hello_newsroom.error.log
+    LogLevel warn
+
+    CustomLog /home/newsapps/logs/hello_newsroom.access.log combined
+    
+    ServerSignature Off
+    
+    RewriteEngine on
+    # canonical hostname
+    RewriteCond %{HTTP_HOST} ^www [NC] 
+    RewriteRule ^/(.*)  http://hello_newsroom.beta.tribapps.com/$1 [L,R]
+    
+    DocumentRoot /home/newsapps/sites/hello_newsroom/repository/hello_newsroom/assets/
+    
+    RewriteCond %{REQUEST_URI} !/maintenance.html$ 
+    RewriteRule $ /maintenance.html [R=302,L]
+</VirtualHost>
