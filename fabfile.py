@@ -29,8 +29,8 @@ def production():
     Work on production environment
     """
     env.settings = 'production'
-    env.hosts = ['db.example.com']
     env.user = 'newsapps'
+    env.hosts = ['db.example.com']
     env.s3_bucket = 'media.apps.chicagotribune.com'
 
 def staging():
@@ -38,8 +38,8 @@ def staging():
     Work on staging environment
     """
     env.settings = 'staging'
-    env.hosts = ['ec2-174-129-52-233.compute-1.amazonaws.com'] 
     env.user = 'newsapps'
+    env.hosts = ['ec2-174-129-52-233.compute-1.amazonaws.com'] 
     env.s3_bucket = 'media-beta.tribapps.com'
     
 """
@@ -85,6 +85,7 @@ def setup():
     install_requirements()
     install_apache_conf()
     deploy_requirements_to_s3()
+    reboot()
 
 def setup_directories():
     """
