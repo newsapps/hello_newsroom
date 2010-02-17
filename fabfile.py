@@ -83,7 +83,6 @@ def setup():
     load_data()
     install_requirements()
     install_apache_conf()
-    reboot()
 
 def setup_directories():
     """
