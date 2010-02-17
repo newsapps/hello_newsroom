@@ -10,7 +10,6 @@ env.project_name = 'hello_newsroom'
 env.database_password = '5IQZe7WEix'
 env.site_media_prefix = "site_media"
 env.admin_media_prefix = "admin_media"
-env.newsapps_media_prefix = "na_media"
 env.path = '/home/newsapps/sites/%(project_name)s' % env
 env.log_path = '/home/newsapps/logs/%(project_name)s' % env
 env.env_path = '%(path)s/env' % env
@@ -84,7 +83,6 @@ def setup():
     load_data()
     install_requirements()
     install_apache_conf()
-    deploy_requirements_to_s3()
     reboot()
 
 def setup_directories():
@@ -128,15 +126,6 @@ def install_apache_conf():
     """
     sudo('cp %(repo_path)s/%(project_name)s/configs/%(settings)s/apache %(apache_config_path)s' % env)
 
-def deploy_requirements_to_s3():
-    """
-    Deploy the latest newsapps and admin media to s3.
-    """
-    run('s3cmd del --recursive s3://%(s3_bucket)s/%(project_name)s/%(admin_media_prefix)s/' % env)
-    run('s3cmd -P --guess-mime-type sync %(env_path)s/src/django/django/contrib/admin/media/ s3://%(s3_bucket)s/%(project_name)s/%(site_media_prefix)s/' % env)
-    run('s3cmd del --recursive s3://%(s3_bucket)s/%(project_name)s/%(newsapps_media_prefix)s/' % env)
-    run('s3cmd -P --guess-mime-type sync %(env_path)s/src/newsapps/newsapps/na_media/ s3://%(s3_bucket)s/%(project_name)s/%(newsapps_media_prefix)s/' % env)
-    
 """
 Commands - deployment
 """
