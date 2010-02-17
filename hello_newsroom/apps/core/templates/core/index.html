@@ -5,7 +5,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <link rel="stylesheet" href="{% build_media_url '/hello_newsroom.css' %}" type="text/css" media="screen" title="no title" charset="utf-8">
+    <link rel="stylesheet" href="{% build_media_url '/site_media/hello_newsroom.css' %}" type="text/css" media="screen" title="no title" charset="utf-8">
     <title>Hello, Newsroom</title>
     <script type="text/javascript" charset="utf-8" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.1/jquery.min.js"></script>
     {% gmap %}
@@ -75,7 +75,7 @@
         $(document).ready(init);
         var gmap = null;
         {% if point %}
-        TRAIN_ICON = new GIcon(G_DEFAULT_ICON, "{% build_media_url '/train.png' %}")
+        TRAIN_ICON = new GIcon(G_DEFAULT_ICON, "{% build_media_url '/site_media/train.png' %}")
         function init_map() {
             if (GBrowserIsCompatible()) {
                 var center = {{point.geojson|safe}};
