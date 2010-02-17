@@ -16,7 +16,7 @@ env.env_path = '%(path)s/env' % env
 env.repo_path = '%(path)s/repository' % env
 env.apache_config_path = '/home/newsapps/sites/apache/%(project_name)s' % env
 env.python = 'python2.6'
-env.repository_url = 'git://github.com/JoeGermuska/hello_newsroom.git'
+env.repository_url = 'your_git_repository_url'
 env.multi_server = False
 env.memcached_server_address = "cache.example.com"
 
@@ -38,8 +38,8 @@ def staging():
     """
     env.settings = 'staging'
     env.user = 'newsapps'
-    env.hosts = ['ec2-174-129-52-233.compute-1.amazonaws.com'] 
-    env.s3_bucket = 'media-beta.tribapps.com'
+    env.hosts = ['your-ec2-instance-dns-name.amazonaws.com'] 
+    env.s3_bucket = 'your-bucket-name.s3.amazonaws.com'
     
 """
 Branches
