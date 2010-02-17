@@ -6,7 +6,7 @@ from fabric.api import *
 """
 Base configuration
 """
-env.project_name = 'hello_world'
+env.project_name = 'hello_newsroom'
 env.database_password = '5IQZe7WEix'
 env.site_media_prefix = "site_media"
 env.admin_media_prefix = "admin_media"
