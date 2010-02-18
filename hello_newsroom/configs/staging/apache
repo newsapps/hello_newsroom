@@ -4,7 +4,7 @@
 
     WSGIScriptAlias / /home/newsapps/sites/hello_newsroom/repository/hello_newsroom/configs/staging/staging.wsgi
     
-    Redirect permanent /favicon.ico http://media-beta.tribapps.com/hello_newsroom/na_media/favicon.ico
+    Redirect permanent /favicon.ico http://your-bucket-name.s3.amazonaws.com/hello_newsroom/site_media/favicon.ico
     
     Alias /robots.txt /home/newsapps/sites/hello_newsroom/repository/hello_newsroom/assets/robots.txt
  
@@ -16,7 +16,7 @@
     ServerSignature Off
     
     RewriteEngine on
-    # canonical hostname
+    # canonical hostname -- remove 'www' 
     RewriteCond %{HTTP_HOST} ^www [NC] 
     RewriteRule ^/(.*)  http://hello_newsroom.beta.tribapps.com/$1 [L,R]
     
