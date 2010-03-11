@@ -39,7 +39,7 @@ def staging():
     env.settings = 'staging'
     env.user = 'newsapps'
     env.hosts = ['ec2-184-73-1-9.compute-1.amazonaws.com'] 
-    env.s3_bucket = 'media-beta.s3.amazonaws.com'
+    env.s3_bucket = 'media-beta.tribapps.com'
     
 """
 Branches
