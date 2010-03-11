@@ -16,7 +16,7 @@ env.env_path = '%(path)s/env' % env
 env.repo_path = '%(path)s/repository' % env
 env.apache_config_path = '/home/newsapps/sites/apache/%(project_name)s' % env
 env.python = 'python2.6'
-env.repository_url = 'your_git_repository_url'
+env.repository_url = 'git@github.com:JoeGermuska/hello_newsroom.git'
 env.multi_server = False
 env.memcached_server_address = "cache.example.com"
 
@@ -38,8 +38,8 @@ def staging():
     """
     env.settings = 'staging'
     env.user = 'newsapps'
-    env.hosts = ['your-ec2-instance-dns-name.amazonaws.com'] 
-    env.s3_bucket = 'your-bucket-name.s3.amazonaws.com'
+    env.hosts = ['ec2-184-73-1-9.compute-1.amazonaws.com'] 
+    env.s3_bucket = 'media-beta.s3.amazonaws.com'
     
 """
 Branches
@@ -322,4 +322,3 @@ def shiva_local():
     Undo any local setup.  This will *destroy* your local database, so use with caution.
     """    
     destroy_database(local)
-    

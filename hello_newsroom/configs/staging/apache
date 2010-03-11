@@ -1,6 +1,6 @@
 <VirtualHost *:80>
     ServerName hello_newsroom.beta.tribapps.com
-    ServerAlias your-ec2-instance-dns-name.amazonaws.com
+    ServerAlias ec2-184-73-1-9.compute-1.amazonaws.com
 
     WSGIScriptAlias / /home/newsapps/sites/hello_newsroom/repository/hello_newsroom/configs/staging/staging.wsgi
     
