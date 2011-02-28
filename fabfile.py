@@ -16,7 +16,7 @@ env.env_path = '%(path)s/env' % env
 env.repo_path = '%(path)s/repository' % env
 env.apache_config_path = '/home/newsapps/sites/apache/%(project_name)s' % env
 env.python = 'python2.6'
-env.repository_url = 'git://github.com/bouvard/hello_newsroom.git'
+env.repository_url = 'your_git_repository_url'
 env.multi_server = False
 env.memcached_server_address = "cache.example.com"
 
@@ -30,6 +30,10 @@ def production():
     env.settings = 'production'
     env.user = 'newsapps'
     env.hosts = ['db.example.com']
+    # Install your SSH public key in the 'authorized_keys' file for the above user on the above host,
+    # or specify the path to your private key in env.key_filename below.
+    # see http://www.eng.cam.ac.uk/help/jpmg/ssh/authorized_keys_howto.html for more info.
+    # env.key_filename = 'path_to_your_key_file.pem'
     env.s3_bucket = 'media.apps.chicagotribune.com'
 
 def staging():
@@ -38,8 +42,12 @@ def staging():
     """
     env.settings = 'staging'
     env.user = 'newsapps'
-    env.hosts = ['ec2-184-73-1-9.compute-1.amazonaws.com'] 
-    env.s3_bucket = 'media-beta.tribapps.com'
+    env.hosts = ['your-ec2-instance-dns-name.amazonaws.com'] 
+    # Install your SSH public key in the 'authorized_keys' file for the above user on the above host,
+    # or specify the path to your private key in env.key_filename below.
+    # see http://www.eng.cam.ac.uk/help/jpmg/ssh/authorized_keys_howto.html for more info.
+    # env.key_filename = 'path_to_your_key_file.pem'
+    env.s3_bucket = 'your-bucket-name.s3.amazonaws.com'
     
 """
 Branches
@@ -322,3 +330,4 @@ def shiva_local():
     Undo any local setup.  This will *destroy* your local database, so use with caution.
     """    
     destroy_database(local)
+    
